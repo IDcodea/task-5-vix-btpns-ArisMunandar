@@ -69,7 +69,10 @@ Struktur dokumen / environment dari GoLang yang akan dibentuk kurang lebih sebag
 - **go mod** : Yang digunakan untuk manajemen package / dependency berupa library
 
 <b><h2><center>Test API Register User</center></h1></b>
-![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/images/register.png)
+<br>
+<br>
+
+![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/main/images/register.png)
 
 <br>
 <br>
