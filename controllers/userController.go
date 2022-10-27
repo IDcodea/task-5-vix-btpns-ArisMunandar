@@ -177,3 +177,90 @@ func CreateUser(c *gin.Context) {
 		"data":    data,
 	}) //Response success
 }
+
+//Function to update user
+func UpdateUser(c *gin.Context) {
+
+	//Set database
+	db := c.MustGet("db").(*gorm.DB)
+
+	//Check if user exist
+	var user models.User
+	err := db.Debug().Where("id = ?", c.Param("userId")).First(&user).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "Error",
+			"message": "User with id " + c.Param("userId") + " not found",
+			"data":    nil,
+		})
+		return
+	}
+
+	//Read body form
+	body, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+	}
+
+	//Convert json to object
+	user_model := models.User{}
+
+	user_model.ID = user.ID
+	err = json.Unmarshal(body, &user_model)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	//Validate user
+	err = user_model.Validate("update")
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	//Hashing password
+	err = user_model.HashPassword()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//Update user
+	err = db.Debug().Model(&user).Updates(&user_model).Error
+	if err != nil {
+		formattedError := errorformat.ErrorMessage(err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "Error",
+			"message": formattedError.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	data := app.UserRegister{ //data to be used for response
+		ID:        user_model.ID,
+		Username:  user_model.Username,
+		Email:     user_model.Email,
+		CreatedAt: user_model.CreatedAt,
+		UpdatedAt: user_model.UpdatedAt,
+	}
+
+	//Response success
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "Success",
+		"message": "User updated succesfully",
+		"data":    data,
+	})
+}

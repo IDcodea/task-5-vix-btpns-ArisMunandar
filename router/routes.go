@@ -18,5 +18,6 @@ func InitRoutes(db *gorm.DB) *gin.Engine {
 		//User Routes
 	router.POST("/users/login", controllers.Login)
 	router.POST("/users/register", controllers.CreateUser)
+	router.PUT("/users/:userId", controllers.UpdateUser)
 return router
 }
