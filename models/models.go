@@ -4,8 +4,8 @@ import (
 	"errors"
 	"html"
 	"strings"
-	"task-vix-btpns/app"
-	"task-vix-btpns/helpers/hash"
+	"vix-btpns/app"
+	"vix-btpns/helpers/hash"
 	"time"
 
 	"github.com/badoux/checkmail"

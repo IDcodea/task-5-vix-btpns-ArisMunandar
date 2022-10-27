@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"task-vix-btpns/models"
+	"vix-btpns/models"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

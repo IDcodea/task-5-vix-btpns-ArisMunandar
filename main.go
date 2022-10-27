@@ -1,9 +1,9 @@
 package main
 import (
 	"os"
-	"task-vix-btpns/database"
-	"task-vix-btpns/models"
-	"task-vix-btpns/router"
+	"vix-btpns/database"
+	"vix-btpns/models"
+	"vix-btpns/router"
 )
 
 func main() {

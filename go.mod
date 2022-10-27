@@ -1,4 +1,4 @@
-module task-vix-btpns
+module vix-btpns
 
 go 1.19
 
