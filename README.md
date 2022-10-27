@@ -70,7 +70,18 @@ Struktur dokumen / environment dari GoLang yang akan dibentuk kurang lebih sebag
 
 <b><h2><center>Test API Register User</center></h1></b>
 ![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/main/images/register.png)
-
+<br>
+<br>
+<b><h2><center>Test API Login User</center></h1></b>
+![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/main/images/userlogin.png)
+<br>
+<br>
+<b><h2><center>Test API Update User</center></h1></b>
+![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/main/images/userupdate.png)
+<br>
+<br>
+<b><h2><center>Test API Get Photos</center></h1></b>
+![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/main/images/getphotos.png)
 <br>
 <br>
 
