@@ -1,5 +1,5 @@
-
 ## Deskripsi
+
 Berdasarkan data yang telah diolah oleh tim Data Analysts, bahwa untuk  
 meningkatkan engagement user pada aplikasi m-banking adalah meningkatkan  
 aspek memiliki user pada aplikasi tersebut. Saran yang diberikan oleh tim data  
@@ -21,38 +21,44 @@ Buatlah API menggunakan bahasa GoLang yang sesuai dengan ketentuan dan
 kebutuhan diatas!
 
 ## Endpoints
+
 Pada bagian User Endpoint :
+
 1. POST : /users/register, dan gunakan atribut berikut ini :
-    - ID (primary key, required)
-    - Username (required)
-    - Email (unique & required)
-    - Password (required & minlength 6)
-    - Relasi dengan model Photo (Gunakan constraint cascade)
-    - Created At (timestamp)
-    - Updated At (timestamp)
+   - ID (primary key, required)
+   - Username (required)
+   - Email (unique & required)
+   - Password (required & minlength 6)
+   - Relasi dengan model Photo (Gunakan constraint cascade)
+   - Created At (timestamp)
+   - Updated At (timestamp)
 2. GET: /users/login
-    - Using email & password (required)
+   - Using email & password (required)
 3. PUT : /users/:userId (Update User)
 4. DELETE : /users/:userId (Delete User)
 
 Photos Endpoint
+
 1. POST : /photos
-    - ID
-    - Title
-    - Caption
-    - PhotoUrl
-    - UserID
-    - Relasi dengan model User
+   - ID
+   - Title
+   - Caption
+   - PhotoUrl
+   - UserID
+   - Relasi dengan model User
 2. GET : /photos
 3. PUT : /photoId
 4. DELETE : /:photoId
 
 ## Requirement
+
 1. Authorization dapat menggunakan tool [Go JWT](https://github.com/dgrijalva/jwt-go)
 2. Pastikan hanya user yang membuat foto yang dapat menghapus / mengubah foto
 
 ## Repo Structure
+
 Struktur dokumen / environment dari GoLang yang akan dibentuk kurang lebih sebagai berikut :
+
 - **app** : Menampung pembuatan struct dalam kasus ini menggunakan struct User untuk keperluan data dan authentication
 - **controllers** : Berisi antara logic database yaitu models dan query
 - **database** : Berisi konfigurasi database serta digunakan untuk menjalankan koneksi database dan migration
@@ -62,6 +68,11 @@ Struktur dokumen / environment dari GoLang yang akan dibentuk kurang lebih sebag
 - **router** : Berisi konfigurasi routing / endpoint yang akan digunakan untuk mengakses api
 - **go mod** : Yang digunakan untuk manajemen package / dependency berupa library
 
+<b><h2><center>Test API Register User</center></h1></b>
+![header image](https://raw.github.com/IDcodea/task-5-vix-btpns-ArisMunandar/images/register.png)
+
+<br>
+<br>
 ## Tools & Libraries
 Tools yang dapat kalian gunakan :
 - [Gin Gonic Framework](https://github.com/gin-gonic/gin)

@@ -19,5 +19,8 @@ func InitRoutes(db *gorm.DB) *gin.Engine {
 	router.POST("/users/login", controllers.Login)
 	router.POST("/users/register", controllers.CreateUser)
 	router.PUT("/users/:userId", controllers.UpdateUser)
+	router.DELETE("/users/:userId", controllers.DeleteUser)
+
+	
 return router
 }

@@ -264,3 +264,41 @@ func UpdateUser(c *gin.Context) {
 		"data":    data,
 	})
 }
+
+//Function to delete user
+func DeleteUser(c *gin.Context) {
+
+	//Set database
+	db := c.MustGet("db").(*gorm.DB)
+
+	//Check if user exist
+	var user models.User
+
+	err := db.Debug().Where("id = ?", c.Param("userId")).First(&user).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "Error",
+			"message": "User with id " + c.Param("userId") + " not found",
+			"data":    nil,
+		})
+		return
+	}
+
+	//Delete user
+	err = db.Debug().Delete(&user).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	//Response success
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "Success",
+		"message": "User deleted succesfully",
+		"data":    nil,
+	})
+}
