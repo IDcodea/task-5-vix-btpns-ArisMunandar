@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"io/ioutil"
-
+	"log"
 	"net/http"
 
 	"vix-btpns/app"
@@ -106,4 +106,74 @@ func Login(c *gin.Context) {
 		"message": "Login successfully",
 		"data":    data,
 	})
+}
+
+//Function to register user
+func CreateUser(c *gin.Context) {
+	//set database
+	db := c.MustGet("db").(*gorm.DB)
+
+	// read body form
+	body, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+	}
+
+	//Convert json to object
+	user_model := models.User{}
+	err = json.Unmarshal(body, &user_model)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	user_model.Init() //Inisialize user
+
+	err = user_model.Validate("update") //Validate user
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status":  "Error",
+			"message": err.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	err = user_model.HashPassword() //Hash password
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = db.Debug().Create(&user_model).Error //Create user to database
+	if err != nil {
+		formattedError := errorformat.ErrorMessage(err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "Error",
+			"message": formattedError.Error(),
+			"data":    nil,
+		})
+		return
+	}
+
+	data := app.UserRegister{ //data to be used for response
+		ID:        user_model.ID,
+		Username:  user_model.Username,
+		Email:     user_model.Email,
+		CreatedAt: user_model.CreatedAt,
+		UpdatedAt: user_model.UpdatedAt,
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "Success",
+		"message": "User registered succesfully",
+		"data":    data,
+	}) //Response success
 }
