@@ -2,6 +2,7 @@ package router
 
 import (
 	"vix-btpns/controllers"
+	"vix-btpns/middlewares"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -23,5 +24,12 @@ func InitRoutes(db *gorm.DB) *gin.Engine {
 
 	router.GET("/photos", controllers.GetPhoto)
 
+	//Middlewares for photo
+	authorized := router.Group("/").Use(middlewares.AuthMiddleware())
+	{
+		authorized.POST("/photos", controllers.CreatePhoto)
+		authorized.PUT("/photos/:photoId", controllers.UpdatePhoto)
+		authorized.DELETE("/photos/:photoId", controllers.DeletePhoto)
+	}
 return router
 }
